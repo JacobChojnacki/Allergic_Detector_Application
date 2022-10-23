@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical"
+    tools:context=".SignUp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="70sp"
+        android:layout_marginTop="20sp"
+        android:text="@string/register"
+        android:textColor="@color/text_color"
+        android:textSize="32sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40sp"
+        android:layout_marginTop="20sp"
+        android:text="@string/e_mail"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edxEmailData"
+        android:layout_width="300sp"
+        android:layout_height="50sp"
+        android:layout_marginHorizontal="40sp"
+        android:autofillHints="emailAddress"
+        android:background="@drawable/edx_text"
+        android:hint="@string/e_mail_data"
+        android:inputType="textEmailAddress"
+        android:paddingStart="13sp"
+        tools:ignore="LabelFor,RtlSymmetry" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40sp"
+        android:layout_marginTop="20sp"
+        android:text="@string/password"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edxPassword"
+        android:layout_width="300sp"
+        android:layout_height="50sp"
+        android:layout_marginHorizontal="40sp"
+        android:autofillHints="password"
+        android:background="@drawable/edx_text"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:paddingStart="13sp"
+        tools:ignore="LabelFor,RtlSymmetry" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40sp"
+        android:layout_marginTop="20sp"
+        android:text="@string/name"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edxName"
+        android:layout_width="300sp"
+        android:layout_height="50sp"
+        android:layout_marginHorizontal="40sp"
+        android:autofillHints="name"
+        android:background="@drawable/edx_text"
+        android:hint="@string/name"
+        android:inputType="textPersonName"
+        android:paddingStart="13sp"
+        tools:ignore="LabelFor,RtlSymmetry" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40sp"
+        android:layout_marginTop="20sp"
+        android:text="@string/surname"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edxSurname"
+        android:layout_width="300sp"
+        android:layout_height="50sp"
+        android:layout_marginHorizontal="40sp"
+        android:autofillHints="name"
+        android:background="@drawable/edx_text"
+        android:hint="@string/surname"
+        android:inputType="textPersonName"
+        android:paddingStart="13sp"
+        tools:ignore="LabelFor,RtlSymmetry" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40sp"
+        android:layout_marginTop="20sp"
+        android:text="@string/miasto"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edxCity"
+        android:layout_width="300sp"
+        android:layout_height="50sp"
+        android:layout_marginHorizontal="40sp"
+        android:autofillHints="name"
+        android:background="@drawable/edx_text"
+        android:hint="@string/miasto"
+        android:inputType="textWebEmailAddress"
+        android:paddingStart="13sp"
+        tools:ignore="LabelFor,RtlSymmetry" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnRegister"
+            android:layout_width="160sp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20sp"
+            android:layout_marginTop="20sp"
+            android:background="@drawable/button_background"
+            android:text="@string/register" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnCancel"
+            android:layout_width="160sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:background="@drawable/button_background"
+            android:text="@string/cancel" />
+    </LinearLayout>
+</LinearLayout>
