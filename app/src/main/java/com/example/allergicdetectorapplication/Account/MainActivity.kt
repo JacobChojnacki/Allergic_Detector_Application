@@ -1,9 +1,10 @@
-package com.example.allergicdetectorapplication
+package com.example.allergicdetectorapplication.Account
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
+import com.example.allergicdetectorapplication.R
 
 class MainActivity : AppCompatActivity() {
     private lateinit var btnLogin: Button

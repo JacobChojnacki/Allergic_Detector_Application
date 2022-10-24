@@ -1,11 +1,13 @@
-package com.example.allergicdetectorapplication
+package com.example.allergicdetectorapplication.Account
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.allergicdetectorapplication.R
+import com.google.firebase.auth.FirebaseAuth
 
 class SignUp : AppCompatActivity() {
 
@@ -16,10 +18,13 @@ class SignUp : AppCompatActivity() {
     private lateinit var edxCity: EditText
     private lateinit var btnRegister: Button
     private lateinit var btnCancel: Button
+    private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
+
+        mAuth = FirebaseAuth.getInstance()
 
         edxEmailData = findViewById(R.id.edxEmailData)
         edxPassword = findViewById(R.id.edxPassword)
@@ -33,5 +38,27 @@ class SignUp : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+
+        btnRegister.setOnClickListener {
+            val email = edxEmailData.text.toString()
+            val password = edxPassword.text.toString()
+
+            signUp(email, password)
+        }
+    }
+
+    private fun signUp(email: String, password: String) {
+        mAuth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val intent = Intent(this@SignUp, MainActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Toast.makeText(this@SignUp,
+                                     "Something went wrong",
+                                          Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 }

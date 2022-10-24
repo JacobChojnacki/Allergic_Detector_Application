@@ -20,4 +20,10 @@
     <string name="surname">NAZWISKO</string>
     <string name="miasto">MIASTO</string>
     <string name="cancel">ANULUJ</string>
+    <string name="username">IMIĘ NAZWISKO</string>
+    <string name="allergens">TWOJE ALERGENY</string>
+    <string name="check_product">SPRAWDŹ PRODUKT</string>
+    <string name="calendar_dust">KALENDARZ PYLEŃ</string>
+    <string name="log_out">WYLOGUJ SIĘ</string>
+    <string name="user_allergens">TWOJE ALERGENY</string>
 </resources>
