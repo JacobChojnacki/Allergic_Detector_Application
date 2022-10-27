@@ -26,4 +26,9 @@
     <string name="calendar_dust">KALENDARZ PYLEŃ</string>
     <string name="log_out">WYLOGUJ SIĘ</string>
     <string name="user_allergens">TWOJE ALERGENY</string>
+    <string name="add_allergen">DODAJ NOWY ALERGEN</string>
+    <string name="allergen">ALERGEN</string>
+    <string name="btn_add_allergen">DODAJ ALERGEN</string>
+    <string name="after_qr">PO KODZIE KRESKOWYM</string>
+    <string name="after_ingredients_photo">PO ZDJĘCIU SKŁADU</string>
 </resources>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#CCD5AE"
+    android:orientation="vertical"
+    tools:context=".UserTools.CheckProduct">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_marginStart="60sp"
+        android:text="@string/check_product"
+        android:textAlignment="center"
+        android:textColor="@color/text_color"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnQrPhoto"
+        android:layout_width="270sp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="60sp"
+        android:layout_marginTop="80sp"
+        android:background="@drawable/button_background"
+        android:text="@string/after_qr"
+        android:textColor="@color/text_color" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnIngredientPhoto"
+        android:layout_width="270sp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="60sp"
+        android:layout_marginTop="30sp"
+        android:background="@drawable/button_background"
+        android:text="@string/after_ingredients_photo"
+        android:textColor="@color/text_color" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnCancelCheck"
+        android:layout_width="170sp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="110sp"
+        android:layout_marginTop="100sp"
+        android:background="@drawable/button_background"
+        android:text="@string/cancel"
+        android:textColor="@color/text_color" />
+
+</LinearLayout>

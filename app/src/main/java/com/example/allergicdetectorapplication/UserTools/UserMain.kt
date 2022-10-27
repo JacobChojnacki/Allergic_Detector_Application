@@ -30,10 +30,13 @@ class UserMain : AppCompatActivity() {
         btnLogOut = findViewById(R.id.btnLogOut)
 
 
-
-
         btnCheckAllergens.setOnClickListener {
             val intent = Intent(this, UserAllergens::class.java)
+            startActivity(intent)
+        }
+
+        btnCheckProduct.setOnClickListener {
+            val intent = Intent(this, CheckProduct::class.java)
             startActivity(intent)
         }
 

@@ -46,7 +46,9 @@ class LogIn : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     val intent = Intent(this@LogIn, UserMain::class.java).also {
-                        it.putExtra("email", email)
+                        it.putExtra("email", email.replaceAfter('@', "")
+                                                        .replace("@","")
+                                                        .uppercase())
                     }
                     startActivity(intent)
                 } else {
