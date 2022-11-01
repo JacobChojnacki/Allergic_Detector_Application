@@ -2,7 +2,6 @@ package com.example.allergicdetectorapplication.UserTools
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -10,7 +9,15 @@ import android.widget.EditText
 import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.allergicdetectorapplication.R
+import com.example.allergicdetectorapplication.models.Allergens
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 
 class UserAllergens : AppCompatActivity() {
@@ -18,12 +25,14 @@ class UserAllergens : AppCompatActivity() {
     private lateinit var edxAdd_allergen: EditText
     private lateinit var btn_addAllergen: Button
     private lateinit var btn_CancelAllergen: Button
+    private lateinit var dbRef: DatabaseReference
+    private lateinit var userAllergensRecyclerView: RecyclerView
+    private lateinit var userAllergensArrayList: ArrayList<Allergens>
 
-    var kindOfAllergens = arrayOf(
+    var kindOfAllergens = mutableListOf<String>(
         "Orzeszki", "Pomidor", "Jaja", "Gluten",
         "Laktoza", "Seler"
     )
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_allergens)
@@ -32,25 +41,43 @@ class UserAllergens : AppCompatActivity() {
         btn_addAllergen = findViewById(R.id.btn_addAllergen)
         edxAdd_allergen = findViewById(R.id.edxAdd_allergen)
 
+        userAllergensRecyclerView = findViewById(R.id.allergenList)
+        userAllergensRecyclerView.layoutManager = LinearLayoutManager(this)
+        userAllergensRecyclerView.setHasFixedSize(true)
+
+        userAllergensArrayList = arrayListOf<Allergens>()
+        getUserData()
+
+        dbRef = FirebaseDatabase.getInstance().getReference("Allergens")
+
+        btn_addAllergen.setOnClickListener {
+
+        }
+
         btn_CancelAllergen.setOnClickListener {
             val intent = Intent(this, UserMain::class.java)
             startActivity(intent)
         }
+    }
 
-        val lvAllergens = findViewById<ListView>(R.id.lvAllergens)
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, kindOfAllergens)
-        lvAllergens.adapter = adapter
-        lvAllergens.onItemClickListener =
-            AdapterView.OnItemClickListener { p0, p1, p2, p3 ->
-                Toast.makeText(
-                    applicationContext,
-                    "clicked item = " + kindOfAllergens[p2],
-                    Toast.LENGTH_SHORT
-                ).show()
+    private fun getUserData() {
+        dbRef = FirebaseDatabase.getInstance().getReference("Allergens")
+        dbRef.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()){
+                    for (allergenSnapshot in snapshot.children){
+                        val allergenName = allergenSnapshot.getValue(Allergens::class.java)
+                        userAllergensArrayList.add(allergenName!!)
+                    }
+                    userAllergensRecyclerView.adapter = MyAdapter(userAllergensArrayList)
+                }
             }
 
-//        btn_addAllergen.setOnClickListener {
-//
-//        }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
     }
+
 }

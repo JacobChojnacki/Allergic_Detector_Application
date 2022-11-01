@@ -18,9 +18,7 @@ class UserMain : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_main)
-
         val userInfo = intent.getStringExtra("email")
-
         username = findViewById<TextView>(R.id.username).apply {
             text = userInfo
         }

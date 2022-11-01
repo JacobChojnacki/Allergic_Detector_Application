@@ -18,12 +18,13 @@
         android:textSize="30sp"
         android:textStyle="bold" />
 
-    <ListView
-        android:id="@+id/lvAllergens"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/allergenList"
         android:layout_width="300sp"
         android:layout_height="250sp"
         android:layout_marginStart="50sp"
-        android:layout_marginTop="20sp" />
+        android:layout_marginTop="20sp"
+        tools:listitem="@layout/allergen_item"/>
 
     <TextView
         android:layout_width="wrap_content"
