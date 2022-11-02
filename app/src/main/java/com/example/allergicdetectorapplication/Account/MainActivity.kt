@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
 import com.example.allergicdetectorapplication.R
 
+
 class MainActivity : AppCompatActivity() {
     private lateinit var btnLogin: Button
     private lateinit var btnSignUP: Button
@@ -16,7 +17,6 @@ class MainActivity : AppCompatActivity() {
 
         btnLogin = findViewById(R.id.btnLoginIn)
         btnSignUP = findViewById(R.id.btnSignUp)
-
         btnSignUP.setOnClickListener {
             val intent = Intent(this, SignUp::class.java)
             startActivity(intent)

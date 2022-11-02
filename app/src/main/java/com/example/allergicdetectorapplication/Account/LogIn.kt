@@ -15,7 +15,6 @@ class LogIn : AppCompatActivity() {
     private lateinit var edxPasswordLog: EditText
     private lateinit var btnLogInLog: Button
     private lateinit var btnCancelLog: Button
-
     private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,9 +45,7 @@ class LogIn : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     val intent = Intent(this@LogIn, UserMain::class.java).also {
-                        it.putExtra("email", email.replaceAfter('@', "")
-                                                        .replace("@","")
-                                                        .uppercase())
+                        it.putExtra("email", email)
                     }
                     startActivity(intent)
                 } else {

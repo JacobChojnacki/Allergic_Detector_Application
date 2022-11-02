@@ -27,10 +27,19 @@ class MyAdapter(private val allegensList: ArrayList<Allergens>) :
         val currentItem = allegensList[position]
 
         holder.firstAllergen.text = currentItem.allergenName
+        holder.secondAllergen.text = currentItem.allergenName1
+        holder.thirdAllergen.text = currentItem.allergenName2
+        holder.fourthAllergen.text = currentItem.allergenName3
+        holder.fiveAllergen.text = currentItem.allergenName4
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val firstAllergen: TextView = itemView.findViewById(R.id.dbAllergen)
+        val firstAllergen: TextView = itemView.findViewById(R.id.Allergen)
+        val secondAllergen: TextView = itemView.findViewById(R.id.Allergen2)
+        val thirdAllergen: TextView = itemView.findViewById(R.id.Allergen3)
+        val fourthAllergen: TextView = itemView.findViewById(R.id.Allergen4)
+        val fiveAllergen: TextView = itemView.findViewById(R.id.Allergen5)
+
     }
 
 

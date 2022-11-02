@@ -7,7 +7,12 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.allergicdetectorapplication.R
+import com.example.allergicdetectorapplication.databinding.ActivitySignUpBinding
+import com.example.allergicdetectorapplication.models.Allergens
+import com.example.allergicdetectorapplication.models.Users
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class SignUp : AppCompatActivity() {
 
@@ -19,10 +24,12 @@ class SignUp : AppCompatActivity() {
     private lateinit var btnRegister: Button
     private lateinit var btnCancel: Button
     private lateinit var mAuth: FirebaseAuth
-
+    private lateinit var database: DatabaseReference
+    private lateinit var binding: ActivitySignUpBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up)
+        binding = ActivitySignUpBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         mAuth = FirebaseAuth.getInstance()
 
@@ -39,11 +46,38 @@ class SignUp : AppCompatActivity() {
             startActivity(intent)
         }
 
-        btnRegister.setOnClickListener {
-            val email = edxEmailData.text.toString()
-            val password = edxPassword.text.toString()
+        binding.btnRegister.setOnClickListener {
+            val email = binding.edxEmailData.text.toString()
+            val password = binding.edxPassword.text.toString()
+            val name = binding.edxName.text.toString()
+            val surname = binding.edxSurname.text.toString()
+            val city = binding.edxCity.text.toString()
+            val allergens = mutableListOf(
+                Allergens("orzeszki"),
+                Allergens("pomidor"),
+                Allergens("jaja"),
+                Allergens("laktoza"),
+                Allergens("seler"),
+            )
 
             signUp(email, password)
+            database = FirebaseDatabase.getInstance().getReference("Users")
+            val user = Users(email, password, name, surname, city, allergens)
+            FirebaseAuth.getInstance().uid?.let { it1 ->
+                database.child(it1).setValue(user).addOnSuccessListener {
+                    binding.edxName.text.clear()
+                    binding.edxEmailData.text.clear()
+                    binding.edxPassword.text.clear()
+                    binding.edxSurname.text.clear()
+                    binding.edxCity.text.clear()
+
+                    Toast.makeText(this, "Udalo sie", Toast.LENGTH_SHORT).show()
+                }.addOnFailureListener {
+                    Toast.makeText(this, "Nie udalo sie", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+
         }
     }
 
@@ -54,10 +88,11 @@ class SignUp : AppCompatActivity() {
                     val intent = Intent(this@SignUp, MainActivity::class.java)
                     startActivity(intent)
                 } else {
-                    // If sign in fails, display a message to the user.
-                    Toast.makeText(this@SignUp,
-                                     "Something went wrong",
-                                          Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@SignUp,
+                        "Something went wrong",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
     }

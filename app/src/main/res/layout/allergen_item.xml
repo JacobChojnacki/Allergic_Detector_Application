@@ -7,23 +7,114 @@
     android:background="#CCD5AE"
     android:orientation="vertical"
     tools:context=".Account.MainActivity">
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <TextView
-            android:id="@+id/dbAllergen"
-            android:layout_width="wrap_content"
+            android:id="@+id/Allergen"
+            android:layout_width="200sp"
             android:layout_height="wrap_content"
             android:text="Allergen"
             android:textSize="20sp"
-            android:textStyle="bold"/>
-        <Switch
-            android:layout_width="wrap_content"
-            android:layout_marginStart="180dp"
-            android:layout_height="wrap_content"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
+            android:textStyle="bold" />
 
+        <Switch
+            android:id="@+id/AllergenSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15sp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/Allergen2"
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+            android:text="Allergen"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Switch
+            android:id="@+id/Allergen2Switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50sp"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/Allergen3"
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+            android:text="Allergen"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Switch
+            android:id="@+id/Allergen3Switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20sp">
+
+        <TextView
+            android:id="@+id/Allergen4"
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+            android:text="Allergen"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Switch
+            android:id="@+id/Allergen4Switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20sp">
+
+        <TextView
+            android:id="@+id/Allergen5"
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+            android:text="Allergen"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Switch
+            android:id="@+id/Allergen5Switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
     </LinearLayout>
 
 

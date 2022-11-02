@@ -2,17 +2,16 @@ package com.example.allergicdetectorapplication.UserTools
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ListView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.allergicdetectorapplication.R
 import com.example.allergicdetectorapplication.models.Allergens
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -29,10 +28,7 @@ class UserAllergens : AppCompatActivity() {
     private lateinit var userAllergensRecyclerView: RecyclerView
     private lateinit var userAllergensArrayList: ArrayList<Allergens>
 
-    var kindOfAllergens = mutableListOf<String>(
-        "Orzeszki", "Pomidor", "Jaja", "Gluten",
-        "Laktoza", "Seler"
-    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_allergens)
@@ -46,9 +42,9 @@ class UserAllergens : AppCompatActivity() {
         userAllergensRecyclerView.setHasFixedSize(true)
 
         userAllergensArrayList = arrayListOf<Allergens>()
-        getUserData()
 
-        dbRef = FirebaseDatabase.getInstance().getReference("Allergens")
+        getUserData()
+        getUser2()
 
         btn_addAllergen.setOnClickListener {
 
@@ -62,10 +58,10 @@ class UserAllergens : AppCompatActivity() {
 
     private fun getUserData() {
         dbRef = FirebaseDatabase.getInstance().getReference("Allergens")
-        dbRef.addValueEventListener(object : ValueEventListener{
+        dbRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()){
-                    for (allergenSnapshot in snapshot.children){
+                if (snapshot.exists()) {
+                    for (allergenSnapshot in snapshot.children) {
                         val allergenName = allergenSnapshot.getValue(Allergens::class.java)
                         userAllergensArrayList.add(allergenName!!)
                     }
@@ -80,4 +76,21 @@ class UserAllergens : AppCompatActivity() {
         })
     }
 
+    private fun getUser2() {
+        val ordList: MutableList<UserAllergens>? = null
+        dbRef = FirebaseDatabase.getInstance().getReference("Users")
+        dbRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (postSnapshot in snapshot.children) {
+
+                    Log.d("SDADADADADA", postSnapshot.child("allergens").value.toString())
+
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
 }
