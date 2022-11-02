@@ -1,6 +1,7 @@
 package com.example.allergicdetectorapplication.models
 
 import java.util.HashMap
+import java.util.UUID
 
 data class Allergens(
     var allergenName: String? = null,
@@ -11,6 +12,7 @@ data class Allergens(
 )
 
 data class Users(
+    var uuid: String? = null,
     var email: String? = null,
     var password: String? = null,
     var name: String? = null,

@@ -41,6 +41,7 @@ class SignUp : AppCompatActivity() {
         btnRegister = findViewById(R.id.btnRegister)
         btnCancel = findViewById(R.id.btnCancel)
 
+
         btnCancel.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
@@ -53,47 +54,32 @@ class SignUp : AppCompatActivity() {
             val surname = binding.edxSurname.text.toString()
             val city = binding.edxCity.text.toString()
             val allergens = mutableListOf(
-                Allergens("orzeszki"),
-                Allergens("pomidor"),
-                Allergens("jaja"),
-                Allergens("laktoza"),
-                Allergens("seler"),
+                Allergens(""),
             )
 
-            signUp(email, password)
-            database = FirebaseDatabase.getInstance().getReference("Users")
-            val user = Users(email, password, name, surname, city, allergens)
-            FirebaseAuth.getInstance().uid?.let { it1 ->
-                database.child(it1).setValue(user).addOnSuccessListener {
-                    binding.edxName.text.clear()
-                    binding.edxEmailData.text.clear()
-                    binding.edxPassword.text.clear()
-                    binding.edxSurname.text.clear()
-                    binding.edxCity.text.clear()
-
-                    Toast.makeText(this, "Udalo sie", Toast.LENGTH_SHORT).show()
-                }.addOnFailureListener {
-                    Toast.makeText(this, "Nie udalo sie", Toast.LENGTH_SHORT).show()
+            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    val database = FirebaseDatabase.getInstance().getReference("Users")
+                        .child(mAuth.currentUser!!.uid)
+                    val users: Users = Users(
+                        mAuth.currentUser!!.uid,
+                        email,
+                        password,
+                        name,
+                        surname,
+                        city,
+                        allergens
+                    )
+                    database.setValue(users).addOnCompleteListener() {
+                        if (it.isSuccessful) {
+                            val intent = Intent(this, SignUp::class.java)
+                            startActivity(intent)
+                        } else {
+                            Toast.makeText(this, "Cos poszlo nie tak", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
             }
-
-
         }
-    }
-
-    private fun signUp(email: String, password: String) {
-        mAuth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    val intent = Intent(this@SignUp, MainActivity::class.java)
-                    startActivity(intent)
-                } else {
-                    Toast.makeText(
-                        this@SignUp,
-                        "Something went wrong",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
     }
 }

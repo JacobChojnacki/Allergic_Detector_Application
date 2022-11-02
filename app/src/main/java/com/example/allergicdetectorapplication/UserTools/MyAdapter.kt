@@ -39,8 +39,5 @@ class MyAdapter(private val allegensList: ArrayList<Allergens>) :
         val thirdAllergen: TextView = itemView.findViewById(R.id.Allergen3)
         val fourthAllergen: TextView = itemView.findViewById(R.id.Allergen4)
         val fiveAllergen: TextView = itemView.findViewById(R.id.Allergen5)
-
     }
-
-
 }
