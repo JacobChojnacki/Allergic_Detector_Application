@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.example.allergicdetectorapplication.R
+import com.example.allergicdetectorapplication.photo.QrPhoto
 
 class CheckProduct : AppCompatActivity() {
     private lateinit var btnQrPhoto: Button
@@ -21,6 +22,11 @@ class CheckProduct : AppCompatActivity() {
 
         btnCancelCheck.setOnClickListener {
             intent = Intent(this, UserMain::class.java)
+            startActivity(intent)
+        }
+
+        btnQrPhoto.setOnClickListener {
+            intent = Intent(this, QrPhoto::class.java)
             startActivity(intent)
         }
 

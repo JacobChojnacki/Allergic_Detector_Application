@@ -31,4 +31,8 @@
     <string name="btn_add_allergen">DODAJ ALERGEN</string>
     <string name="after_qr">PO KODZIE KRESKOWYM</string>
     <string name="after_ingredients_photo">PO ZDJĘCIU SKŁADU</string>
+    <string name="qr_scanner">Qr Skaner</string>
+    <string name="zdj_cie">ZDJĘCIE</string>
+    <string name="camera_button">camera button</string>
+    <string name="confirm">ZATWIERDŹ</string>
 </resources>
