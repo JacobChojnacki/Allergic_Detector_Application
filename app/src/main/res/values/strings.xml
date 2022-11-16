@@ -35,4 +35,5 @@
     <string name="zdj_cie">ZDJĘCIE</string>
     <string name="camera_button">camera button</string>
     <string name="confirm">ZATWIERDŹ</string>
+    <string name="choose_allergen">Wybierz Alergen</string>
 </resources>

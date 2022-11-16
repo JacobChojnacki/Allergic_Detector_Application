@@ -1,5 +1,6 @@
 package com.example.allergicdetectorapplication.models
 
+import com.google.firebase.database.Exclude
 import java.util.HashMap
 import java.util.UUID
 
@@ -21,6 +22,17 @@ data class Users(
     val allergens: List<Allergens>? = null
 )
 
+data class AllergenItem(
+    val allergenName: String? = null
+) {
+    @Exclude
+    fun getMap(): Map<String, Any?> {
+        return mapOf(
+            "allergenName" to allergenName
+        )
+    }
+}
+
 data class UserAllergens(
-    var allergen: List<Allergens>? = null
+    var allergens: List<AllergenItem>? = null
 )

@@ -24,7 +24,6 @@ class SignUp : AppCompatActivity() {
     private lateinit var btnRegister: Button
     private lateinit var btnCancel: Button
     private lateinit var mAuth: FirebaseAuth
-    private lateinit var database: DatabaseReference
     private lateinit var binding: ActivitySignUpBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

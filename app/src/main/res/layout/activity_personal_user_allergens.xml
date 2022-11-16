@@ -6,43 +6,55 @@
     android:layout_height="match_parent"
     android:background="@color/background_color"
     android:orientation="vertical"
-    tools:context=".UserTools.UserAllergens">
+    tools:context=".UserTools.AddAllergens">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="90sp"
+        android:layout_marginStart="70sp"
         android:layout_marginTop="50sp"
-        android:text="@string/choose_allergen"
+        android:text="@string/user_allergens"
         android:textColor="@color/text_color"
         android:textSize="30sp"
         android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/allergenList"
-        android:layout_width="300sp"
-        android:layout_height="250sp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:layout_marginStart="50sp"
         android:layout_marginTop="20sp"
-        tools:listitem="@layout/allergen_item"/>
+        tools:listitem="@layout/allergen_item_pua" />
+
+    <EditText
+        android:id="@+id/edxAddAllergen"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="50dp"
+        android:autofillHints="name"
+        android:paddingStart="15dp"
+        android:background="@drawable/edx_text"
+        android:hint="Twoj alergen"
+        tools:ignore="RtlSymmetry"
+        android:inputType="text" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:layout_marginStart="30sp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_addAllergen"
             android:layout_width="150sp"
             android:layout_height="50sp"
+            android:layout_marginStart="20sp"
             android:layout_marginTop="20sp"
             android:background="@drawable/button_background"
-            android:text="@string/btn_add_allergen" />
+            android:text="@string/confirm" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_CancelAllergen"
+            android:id="@+id/btn_cancelAllergen"
             android:layout_width="150sp"
             android:layout_height="50sp"
             android:layout_marginStart="40sp"
@@ -50,4 +62,6 @@
             android:background="@drawable/button_background"
             android:text="@string/cancel" />
     </LinearLayout>
+
+
 </LinearLayout>

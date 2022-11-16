@@ -21,7 +21,6 @@ import com.google.firebase.database.ValueEventListener
 
 class UserAllergens : AppCompatActivity() {
 
-    private lateinit var edxAdd_allergen: EditText
     private lateinit var btn_addAllergen: Button
     private lateinit var btn_CancelAllergen: Button
     private lateinit var dbRef: DatabaseReference
@@ -35,8 +34,7 @@ class UserAllergens : AppCompatActivity() {
 
         btn_CancelAllergen = findViewById(R.id.btn_CancelAllergen)
         btn_addAllergen = findViewById(R.id.btn_addAllergen)
-        edxAdd_allergen = findViewById(R.id.edxAdd_allergen)
-
+        // Recycle view
         userAllergensRecyclerView = findViewById(R.id.allergenList)
         userAllergensRecyclerView.layoutManager = LinearLayoutManager(this)
         userAllergensRecyclerView.setHasFixedSize(true)
@@ -44,10 +42,10 @@ class UserAllergens : AppCompatActivity() {
         userAllergensArrayList = arrayListOf<Allergens>()
 
         getUserData()
-        getUser2()
 
         btn_addAllergen.setOnClickListener {
-
+            val intent = Intent(this, AddAllergens::class.java)
+            startActivity(intent)
         }
 
         btn_CancelAllergen.setOnClickListener {
@@ -73,24 +71,6 @@ class UserAllergens : AppCompatActivity() {
                 TODO("Not yet implemented")
             }
 
-        })
-    }
-
-    private fun getUser2() {
-        val ordList: MutableList<UserAllergens>? = null
-        dbRef = FirebaseDatabase.getInstance().getReference("Users")
-        dbRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for (postSnapshot in snapshot.children) {
-
-                    Log.d("SDADADADADA", postSnapshot.child("allergens").value.toString())
-
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
         })
     }
 }

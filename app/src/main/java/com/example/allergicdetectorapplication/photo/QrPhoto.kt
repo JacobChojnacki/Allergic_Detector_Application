@@ -1,10 +1,13 @@
 package com.example.allergicdetectorapplication.photo
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import com.example.allergicdetectorapplication.R
+import com.example.allergicdetectorapplication.UserTools.CheckProduct
+import com.example.allergicdetectorapplication.UserTools.UserMain
 
 class QrPhoto : AppCompatActivity() {
 
@@ -21,5 +24,9 @@ class QrPhoto : AppCompatActivity() {
         btnConfirmQrPhoto = findViewById(R.id.btnConfirmQrPhoto)
 
 
+        btnCancelQrPhoto.setOnClickListener {
+            val intent = Intent(this, CheckProduct::class.java)
+            startActivity(intent)
+        }
     }
 }

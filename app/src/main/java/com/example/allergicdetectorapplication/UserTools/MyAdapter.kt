@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.allergicdetectorapplication.R
 import com.example.allergicdetectorapplication.models.Allergens
 
-class MyAdapter(private val allegensList: ArrayList<Allergens>) :
+
+class MyAdapter(private val allergensList: ArrayList<Allergens>) :
     RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -20,12 +21,11 @@ class MyAdapter(private val allegensList: ArrayList<Allergens>) :
     }
 
     override fun getItemCount(): Int {
-        return allegensList.size
+        return allergensList.size
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val currentItem = allegensList[position]
-
+        val currentItem = allergensList[position]
         holder.firstAllergen.text = currentItem.allergenName
         holder.secondAllergen.text = currentItem.allergenName1
         holder.thirdAllergen.text = currentItem.allergenName2

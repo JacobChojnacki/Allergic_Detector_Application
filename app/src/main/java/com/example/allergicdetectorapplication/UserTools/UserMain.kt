@@ -2,7 +2,6 @@ package com.example.allergicdetectorapplication.UserTools
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -10,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.allergicdetectorapplication.Account.MainActivity
 import com.example.allergicdetectorapplication.R
 import com.example.allergicdetectorapplication.databinding.ActivityUserMainBinding
-import com.example.allergicdetectorapplication.models.Allergens
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -27,10 +25,7 @@ class UserMain : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityUserMainBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_user_main)
-//        val userInfo = intent.getStringExtra("email")
-//        username = findViewById<TextView>(R.id.username).apply {
-//            text = userInfo
-//        }
+
         btnCheckAllergens = findViewById(R.id.btnAllergens)
         btnCheckProduct = findViewById(R.id.btnCheckProduct)
         btnCalendarDust = findViewById(R.id.btnCalendarDust)
