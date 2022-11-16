@@ -18,7 +18,7 @@
             android:layout_width="200sp"
             android:layout_height="wrap_content"
             android:text="Allergen"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <Switch
@@ -32,7 +32,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15sp"
+        android:layout_marginTop="25sp"
         android:orientation="horizontal">
 
         <TextView
@@ -40,7 +40,7 @@
             android:layout_width="200sp"
             android:layout_height="wrap_content"
             android:text="Allergen"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <Switch
@@ -54,7 +54,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20sp"
+        android:layout_marginTop="25sp"
         android:orientation="horizontal">
 
         <TextView
@@ -62,7 +62,7 @@
             android:layout_width="200sp"
             android:layout_height="wrap_content"
             android:text="Allergen"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <Switch
@@ -76,7 +76,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20sp"
+        android:layout_marginTop="25sp"
         android:orientation="horizontal">
 
         <TextView
@@ -84,7 +84,7 @@
             android:layout_width="200sp"
             android:layout_height="wrap_content"
             android:text="Allergen"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <Switch
@@ -98,7 +98,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20sp"
+        android:layout_marginTop="25sp"
         android:orientation="horizontal">
 
         <TextView
@@ -106,7 +106,7 @@
             android:layout_width="200sp"
             android:layout_height="wrap_content"
             android:text="Allergen"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <Switch

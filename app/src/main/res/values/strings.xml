@@ -38,4 +38,5 @@
     <string name="choose_allergen">Wybierz Alergen</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="imagebutton">ImageButton</string>
 </resources>
