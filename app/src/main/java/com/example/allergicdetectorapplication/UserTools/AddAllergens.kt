@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.example.allergicdetectorapplication.R
 import com.example.allergicdetectorapplication.models.AllergenItem
 import com.google.firebase.auth.FirebaseAuth
@@ -19,16 +20,17 @@ class AddAllergens : AppCompatActivity() {
     private lateinit var btn_cancelAllergen: Button
     private lateinit var edxAddAllergens: EditText
     private lateinit var mAuth: FirebaseAuth
-    private lateinit var db: DatabaseReference
+    private val databaseReference: DatabaseReference =
+        FirebaseDatabase.getInstance().getReference("Users")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_personal_user_allergens)
+        replaceFragment(Home())
         btn_cancelAllergen = findViewById(R.id.btn_cancelAllergen)
         btn_addAllergen = findViewById(R.id.btn_addAllergen)
         edxAddAllergens = findViewById(R.id.edxAddAllergen)
         mAuth = FirebaseAuth.getInstance()
-
         btn_addAllergen.setOnClickListener {
             updateAllergens()
         }
@@ -41,9 +43,15 @@ class AddAllergens : AppCompatActivity() {
 
     }
 
+    private fun replaceFragment(fragment: Fragment) {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frame_layout, fragment)
+        fragmentTransaction.commit()
+    }
+
     private fun updateAllergens() {
-        val database =
-            FirebaseDatabase.getInstance().getReference("Users").child(mAuth.currentUser!!.uid)
+        val database = databaseReference.child(mAuth.currentUser!!.uid)
         val userData = AllergenItem(edxAddAllergens.text.toString())
 
         database.child("allergens").child(edxAddAllergens.text.toString()).setValue(userData)
