@@ -41,5 +41,6 @@ class MyAllergenAdapter : RecyclerView.Adapter<MyAllergenAdapter.MyViewHolder>()
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val allergenName: TextView = itemView.findViewById(R.id.AllergenPUA_Item)
+        val onClickDelete: ((AllergenItem) -> AllergenItem)? = null
     }
 }

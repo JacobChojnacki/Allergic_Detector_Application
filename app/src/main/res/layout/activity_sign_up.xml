@@ -107,7 +107,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="40sp"
         android:layout_marginTop="20sp"
-        android:text="@string/miasto"
+        android:text="@string/city"
         android:textSize="15sp"
         android:textStyle="bold" />
 
@@ -118,7 +118,7 @@
         android:layout_marginHorizontal="40sp"
         android:autofillHints="name"
         android:background="@drawable/edx_text"
-        android:hint="@string/miasto"
+        android:hint="@string/city"
         android:inputType="textWebEmailAddress"
         android:paddingStart="13sp"
         tools:ignore="LabelFor,RtlSymmetry" />

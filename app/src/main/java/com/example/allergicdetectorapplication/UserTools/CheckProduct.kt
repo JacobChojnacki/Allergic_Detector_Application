@@ -6,6 +6,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.example.allergicdetectorapplication.R
 import com.example.allergicdetectorapplication.photo.QrPhoto
+import com.example.allergicdetectorapplication.photo.TextRecog
 
 class CheckProduct : AppCompatActivity() {
     private lateinit var btnQrPhoto: Button
@@ -27,6 +28,11 @@ class CheckProduct : AppCompatActivity() {
 
         btnQrPhoto.setOnClickListener {
             intent = Intent(this, QrPhoto::class.java)
+            startActivity(intent)
+        }
+
+        btnIngredientPhoto.setOnClickListener {
+            intent = Intent(this, TextRecog::class.java)
             startActivity(intent)
         }
 
