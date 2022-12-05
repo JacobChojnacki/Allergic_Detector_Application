@@ -10,8 +10,8 @@ android {
 
     defaultConfig {
         applicationId "com.example.allergicdetectorapplication"
-        minSdk 25
-        targetSdk 33
+        minSdk 21
+        targetSdk 30
         versionCode 1
         versionName "1.0"
 

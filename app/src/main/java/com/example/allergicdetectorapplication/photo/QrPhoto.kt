@@ -38,9 +38,7 @@ class QrPhoto : AppCompatActivity() {
     private lateinit var ivQrCode: ImageView
     private lateinit var tvResult: TextView
     private lateinit var inputImage: InputImage
-
     private lateinit var barcodeScanner: BarcodeScanner
-
     private lateinit var cameraLauncher: ActivityResultLauncher<Intent>
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
     private val TAG = "MyTag"
