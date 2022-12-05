@@ -1,6 +1,7 @@
 package com.example.allergicdetectorapplication.photo
 
 
+import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -14,8 +15,6 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -24,6 +23,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.allergicdetectorapplication.R
 import com.example.allergicdetectorapplication.UserTools.CheckProduct
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode
@@ -41,6 +43,9 @@ class QrPhoto : AppCompatActivity() {
     private lateinit var barcodeScanner: BarcodeScanner
     private lateinit var cameraLauncher: ActivityResultLauncher<Intent>
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var database: DatabaseReference
+    private val REQUEST_IMAGE_CAPTURE = 1
     private val TAG = "MyTag"
     private val CAMERA_PERMISSION_CODE = 123
     private val READ_STORAGE_PERMISSION_CODE = 123
@@ -56,35 +61,49 @@ class QrPhoto : AppCompatActivity() {
         btnConfirmQrPhoto = findViewById(R.id.btnConfirmQrPhoto)
         ivQrCode = findViewById(R.id.ivQrCode)
         tvResult = findViewById(R.id.tvResult)
-
         barcodeScanner = BarcodeScanning.getClient()
 
-        cameraLauncher = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult(),
-            object : ActivityResultCallback<ActivityResult> {
-                override fun onActivityResult(result: ActivityResult?) {
-                    val data = result?.data
-                    try {
-                        val photo = data?.extras?.get("data") as Bitmap
-                        inputImage = InputImage.fromBitmap(photo, 0)
-                        processQr()
-                    } catch (e: Exception) {
-                        Log.d(TAG, "onActivityResult: " + e.message)
-                    }
+        database = FirebaseDatabase.getInstance().getReference("Users")
+        mAuth = FirebaseAuth.getInstance()
+        val allergensUser: ArrayList<String> = ArrayList()
+
+        // Main User List
+        val checkUserList: ArrayList<String> = ArrayList()
+
+        database.child(mAuth.currentUser!!.uid).child("allergens").get()
+            .addOnCompleteListener {
+                allergensUser.add(it.result.value.toString())
+                for (ingredient in allergensUser[0].split(",")) {
+                    checkUserList.add(
+                        ingredient
+                            .replaceBefore("Name=", "")
+                            .replace("Name=", "")
+                            .replace("}", "")
+                    )
                 }
             }
-        )
+
+
+        cameraLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            val data = result?.data
+            try {
+                val photo = data?.extras?.get("data") as Bitmap
+                inputImage = InputImage.fromBitmap(photo, 0)
+                processQr(checkUserList)
+            } catch (e: Exception) {
+                Log.d(TAG, "onActivityResult: " + e.message)
+            }
+        }
 
         galleryLauncher = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult(),
-            object : ActivityResultCallback<ActivityResult> {
-                override fun onActivityResult(result: ActivityResult?) {
-                    val data = result?.data
-                    inputImage = InputImage.fromFilePath(this@QrPhoto, data?.data!!)
-                    processQr()
-                }
-            }
-        )
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            val data = result?.data
+            inputImage = InputImage.fromFilePath(this@QrPhoto, data?.data!!)
+            processQr(checkUserList)
+        }
 
         btnCancelQrPhoto.setOnClickListener {
             val intent = Intent(this, CheckProduct::class.java)
@@ -112,7 +131,8 @@ class QrPhoto : AppCompatActivity() {
         }
     }
 
-    private fun processQr() {
+    @SuppressLint("SetTextI18n")
+    private fun processQr(checkUserList: ArrayList<String>) {
         ivQrCode.visibility = View.GONE
         tvResult.visibility = View.VISIBLE
         barcodeScanner.process(inputImage).addOnCompleteListener {
@@ -133,7 +153,20 @@ class QrPhoto : AppCompatActivity() {
 
                     Barcode.TYPE_TEXT -> {
                         val data = barcode.displayValue
-                        tvResult.text = "Result $data"
+                        if (data != null) {
+                            if (checkUserList.any(data.split(",")::contains)) {
+                                Log.d("ZobaczymyDobrze", data.split(",").toString())
+                            } else {
+                                Log.d("ZobaczymyZLE", data.split(",").toString())
+                                Log.d("ZobaczymyDANE", checkUserList.toString())
+                                Log.d("ZobaczymyZLE1", data.split(",")[0])
+                                Log.d("ZobaczymyDane1", checkUserList[0])
+
+                            }
+                            tvResult.text = "$data"
+                        } else {
+                            tvResult.text = "NIE WYKRYTO KODU QR"
+                        }
                     }
                 }
             }
@@ -188,6 +221,16 @@ class QrPhoto : AppCompatActivity() {
             if (!(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 Toast.makeText(this@QrPhoto, "Storage Permission Denied", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun takeImage() {
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+
+        try {
+            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
+        } catch (e: Exception) {
+
         }
     }
 }

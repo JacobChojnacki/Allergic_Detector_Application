@@ -14,6 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import com.example.allergicdetectorapplication.R
 import com.example.allergicdetectorapplication.UserTools.CheckProduct
@@ -109,14 +110,29 @@ class TextRecog : AppCompatActivity() {
                         binding.tvTextResult.text = it.text
 
                         if (checkUserList.any(items[0].split(",")::contains)) {
-                            binding.ivTextRec.visibility = View.GONE
-                        }
-                        else {
-                            //ustawić obbrazek
+                            binding.ivTextRec.setImageDrawable(
+                                ResourcesCompat.getDrawable(
+                                    resources,
+                                    R.drawable.danger,
+                                    null
+                                )
+                            )
+                            binding.tvTextResult.text = "W TWOIM PRODUKCIE ZNAJDUJE/JĄ SIĘ: " +
+                                    checkUserList.intersect(items[0].split(",").toSet()).toString()
+                                        .replace("[", "")
+                                        .replace("]", "")
+                        } else {
+                            binding.tvTextResult.text = "TWÓJ PRODUKT JEST WOLNY OD ALERGENÓW"
+                            binding.ivTextRec.setImageDrawable(
+                                ResourcesCompat.getDrawable(
+                                    resources,
+                                    R.drawable.safe,
+                                    null
+                                )
+                            )
                         }
 
                         Log.d("Results", items[0].split(",")[0])
-                        Log.d("allergensPlease", checkUserList[0])
 
                     }
                     .addOnFailureListener {
