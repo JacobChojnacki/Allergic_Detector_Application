@@ -74,8 +74,6 @@ class TextRecog : AppCompatActivity() {
 
             btnTakeTextPhoto.setOnClickListener {
                 takeImage()
-
-                tvTextResult.text = ""
             }
             btnConfirmTakeTextRec.setOnClickListener {
                 processImage(checkUserList)
@@ -94,7 +92,7 @@ class TextRecog : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun processImage(checkUserList: ArrayList<String>) {
-        var items: ArrayList<String> = ArrayList()
+        val items: ArrayList<String> = ArrayList()
         if (imageBitmap != null) {
             val image = imageBitmap?.let {
                 InputImage.fromBitmap(it, 0)
@@ -130,6 +128,7 @@ class TextRecog : AppCompatActivity() {
                                     null
                                 )
                             )
+                            binding.ivTextRec.background = null
                         }
 
                         Log.d("Results", items[0].split(",")[0])
