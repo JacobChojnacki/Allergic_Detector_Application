@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30sp"
             android:layout_marginTop="100sp"
-            android:background="@drawable/button_background"
+            android:background="@drawable/ripple"
             android:text="@string/log_in"
             android:textColor="@color/text_color"/>
 
@@ -82,7 +82,7 @@
             android:layout_width="160sp"
             android:layout_height="wrap_content"
             android:layout_marginTop="100sp"
-            android:background="@drawable/button_background"
+            android:background="@drawable/ripple"
             android:text="@string/cancel"
             android:textColor="@color/text_color" />
     </LinearLayout>

@@ -50,7 +50,7 @@
             android:layout_height="50sp"
             android:layout_marginStart="20sp"
             android:layout_marginTop="20sp"
-            android:background="@drawable/button_background"
+            android:background="@drawable/ripple"
             android:text="@string/confirm" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -59,7 +59,7 @@
             android:layout_height="50sp"
             android:layout_marginStart="40sp"
             android:layout_marginTop="20sp"
-            android:background="@drawable/button_background"
+            android:background="@drawable/ripple"
             android:text="@string/cancel" />
     </LinearLayout>
 

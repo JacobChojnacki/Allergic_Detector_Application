@@ -120,10 +120,10 @@ class QrPhoto : AppCompatActivity() {
         }
 
         btnScanBarcode.setOnClickListener {
-            val options = arrayOf("camera", "gallery")
+            val options = arrayOf("KAMERA", "GALERIA")
 
             val builder = AlertDialog.Builder(this@QrPhoto)
-            builder.setTitle("Pick a option")
+            builder.setTitle("DOKONAJ WYBORU")
 
             builder.setItems(options) { _, which ->
                 if (which == 0) {

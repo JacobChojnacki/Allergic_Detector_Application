@@ -13,6 +13,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
@@ -39,6 +42,7 @@ class TextRecog : AppCompatActivity() {
     private val REQUEST_IMAGE_CAPTURE = 1
     private var imageBitmap: Bitmap? = null
     private val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+    private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
     private lateinit var mAuth: FirebaseAuth
     private lateinit var database: DatabaseReference
 
@@ -57,6 +61,17 @@ class TextRecog : AppCompatActivity() {
         // Main User List
         val checkUserList: ArrayList<String> = ArrayList()
 
+        galleryLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            val data = result?.data
+            if (data != null) {
+                imageBitmap =
+                    InputImage.fromFilePath(this@TextRecog, data.data!!).bitmapInternal as Bitmap
+
+                processImage(checkUserList)
+            }
+        }
 
         database.child(mAuth.currentUser!!.uid).child("allergens").get()
             .addOnCompleteListener {
@@ -73,7 +88,22 @@ class TextRecog : AppCompatActivity() {
         binding.apply {
 
             btnTakeTextPhoto.setOnClickListener {
-                takeImage()
+                val options = arrayOf("KAMERA", "GALERIA")
+
+                val builder = AlertDialog.Builder(this@TextRecog)
+                builder.setTitle("DOKONAJ WYBORU")
+
+                builder.setItems(options) { _, which ->
+                    if (which == 0) {
+                        takeImage()
+                    } else {
+                        val storageIntent = Intent()
+                        storageIntent.type = "image/*"
+                        storageIntent.action = Intent.ACTION_GET_CONTENT
+                        galleryLauncher.launch(storageIntent)
+                    }
+                }
+                builder.show()
             }
             btnConfirmTakeTextRec.setOnClickListener {
                 processImage(checkUserList)

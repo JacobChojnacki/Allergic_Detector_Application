@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="60sp"
         android:layout_marginTop="80sp"
-        android:background="@drawable/button_background"
+        android:background="@drawable/ripple"
         android:text="@string/after_qr"
         android:textColor="@color/text_color" />
 
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="60sp"
         android:layout_marginTop="30sp"
-        android:background="@drawable/button_background"
+        android:background="@drawable/ripple"
         android:text="@string/after_ingredients_photo"
         android:textColor="@color/text_color" />
 
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="110sp"
         android:layout_marginTop="100sp"
-        android:background="@drawable/button_background"
+        android:background="@drawable/ripple"
         android:text="@string/cancel"
         android:textColor="@color/text_color" />
 
