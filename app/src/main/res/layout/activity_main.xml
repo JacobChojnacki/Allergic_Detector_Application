@@ -25,6 +25,7 @@
         android:layout_marginHorizontal="75sp"
         android:layout_marginTop="25sp"
         android:contentDescription="@string/allergicMan"
+        android:background="@drawable/border"
         android:src="@drawable/activity_main_image" />
 
     <androidx.appcompat.widget.AppCompatButton

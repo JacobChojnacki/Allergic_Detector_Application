@@ -68,7 +68,12 @@ class TextRecog : AppCompatActivity() {
             if (data != null) {
                 imageBitmap =
                     InputImage.fromFilePath(this@TextRecog, data.data!!).bitmapInternal as Bitmap
-
+                binding.ivTextRec.setImageDrawable(
+                    ResourcesCompat.getDrawable(
+                        resources,
+                        R.drawable.loading, null
+                    )
+                )
                 processImage(checkUserList)
             }
         }
@@ -106,6 +111,12 @@ class TextRecog : AppCompatActivity() {
                 builder.show()
             }
             btnConfirmTakeTextRec.setOnClickListener {
+                binding.ivTextRec.setImageDrawable(
+                    ResourcesCompat.getDrawable(
+                        resources,
+                        R.drawable.loading, null
+                    )
+                )
                 processImage(checkUserList)
             }
         }
@@ -134,6 +145,7 @@ class TextRecog : AppCompatActivity() {
                             it.text.lowercase(Locale.ROOT).split("\n").toString()
                                 .replace("[", "")
                                 .replace("]", "")
+                                .replace(" ", "")
                         )
                         binding.tvTextResult.text = it.text
 
@@ -145,12 +157,13 @@ class TextRecog : AppCompatActivity() {
                                     null
                                 )
                             )
+                            binding.ivTextRec.background = null
                             binding.tvTextResult.text = "W TWOIM PRODUKCIE ZNAJDUJE/JĄ SIĘ: " +
                                     checkUserList.intersect(items[0].split(",").toSet()).toString()
                                         .replace("[", "")
                                         .replace("]", "")
                         } else {
-                            binding.tvTextResult.text = "TWÓJ PRODUKT JEST WOLNY OD ALERGENÓW"
+                            binding.tvTextResult.text = ""
                             binding.ivTextRec.setImageDrawable(
                                 ResourcesCompat.getDrawable(
                                     resources,
@@ -160,16 +173,14 @@ class TextRecog : AppCompatActivity() {
                             )
                             binding.ivTextRec.background = null
                         }
-
-                        Log.d("Results", items[0].split(",")[0])
-
+                        Log.d("Results", items[0].split(",").toString())
                     }
                     .addOnFailureListener {
-                        Toast.makeText(this, "Spróbuj ponownie", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "SPRÓBUJ PONOWNIE", Toast.LENGTH_SHORT).show()
                     }
             }
         } else {
-            Toast.makeText(this, "Nie wybrano zdjecia", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "NIE WYBRANO ZDJĘCIA", Toast.LENGTH_SHORT).show()
         }
     }
 

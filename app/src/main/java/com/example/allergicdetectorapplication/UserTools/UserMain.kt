@@ -1,5 +1,6 @@
 package com.example.allergicdetectorapplication.UserTools
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -30,6 +31,7 @@ class UserMain : AppCompatActivity() {
         btnCheckProduct = findViewById(R.id.btnCheckProduct)
         btnCalendarDust = findViewById(R.id.btnCalendarDust)
         btnLogOut = findViewById(R.id.btnLogOut)
+        username = findViewById<TextView?>(R.id.username)
 
         readData(FirebaseAuth.getInstance().uid)
 
@@ -50,16 +52,15 @@ class UserMain : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun readData(uid: String?) {
-
+        username.text = "ŁADOWANIE DANYCH"
         database = FirebaseDatabase.getInstance().getReference("Users")
         if (uid != null) {
             database.child(uid).get().addOnSuccessListener {
                 if (it.exists()) {
                     val user = it.child("surname").value
-                    username = findViewById<TextView?>(R.id.username).apply {
-                        text = user.toString()
-                    }
+                    username.text = user.toString()
                 } else {
                     Toast.makeText(this, "Uzytkownk nie istnieje", Toast.LENGTH_SHORT).show()
                 }

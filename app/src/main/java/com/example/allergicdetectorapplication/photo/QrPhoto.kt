@@ -63,11 +63,9 @@ class QrPhoto : AppCompatActivity() {
         ivQrCode = findViewById(R.id.ivQrCode)
         tvResult = findViewById(R.id.tvResult)
         barcodeScanner = BarcodeScanning.getClient()
-
         database = FirebaseDatabase.getInstance().getReference("Users")
         mAuth = FirebaseAuth.getInstance()
         val allergensUser: ArrayList<String> = ArrayList()
-
         // Main User List
         val checkUserList: ArrayList<String> = ArrayList()
 
@@ -105,12 +103,15 @@ class QrPhoto : AppCompatActivity() {
             val data = result?.data
             if (data != null) {
                 inputImage = InputImage.fromFilePath(this@QrPhoto, data.data!!)
-                ivQrCode.visibility = View.GONE
+                ivQrCode.setImageDrawable(ResourcesCompat.getDrawable(resources,
+                    R.drawable.loading,null))
                 processQr(checkUserList)
             }
         }
 
         btnConfirmQrPhoto.setOnClickListener {
+            ivQrCode.setImageDrawable(ResourcesCompat.getDrawable(resources,
+                R.drawable.loading,null))
             processQr(checkUserList)
         }
 
@@ -143,7 +144,6 @@ class QrPhoto : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun processQr(checkUserList: ArrayList<String>) {
         val items: ArrayList<String> = ArrayList()
-        tvResult.visibility = View.VISIBLE
         barcodeScanner.process(inputImage).addOnCompleteListener {
             if (it.result.isEmpty()) {
                 tvResult.text = "NIE ZNALEZIONO KODU QR"
@@ -154,7 +154,6 @@ class QrPhoto : AppCompatActivity() {
                     )
                 )
                 ivQrCode.background = null
-                ivQrCode.visibility = View.VISIBLE
             }
             for (barcode: Barcode in it.result) {
                 when (barcode.valueType) {
@@ -178,21 +177,20 @@ class QrPhoto : AppCompatActivity() {
                             ivQrCode.setImageDrawable(
                                 ResourcesCompat.getDrawable(resources, R.drawable.danger, null)
                             )
+                            ivQrCode.background = null
                             tvResult.text = "W TWOIM PRODUKCIE ZNAJDUJE/JĄ SIĘ: " +
                                     checkUserList.intersect(items[0].split(",").toSet())
                                         .toString()
                                         .replace("[", "")
                                         .replace("]", "")
-                            ivQrCode.visibility = View.VISIBLE
                         } else {
-                            tvResult.text = "TWÓJ PRODUKT JEST WOLNY OD ALERGENÓW"
+                            tvResult.text = ""
                             ivQrCode.setImageDrawable(
                                 ResourcesCompat.getDrawable(
                                     resources,
                                     R.drawable.safe, null
                                 )
                             )
-                            ivQrCode.visibility = View.VISIBLE
                         }
                     }
                 }
