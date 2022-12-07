@@ -40,4 +40,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="image_button">ImageButton</string>
     <string name="text_scanner">TEKST SKANER</string>
+    <string name="allergy_symptoms_1">Symptomy Alergi czesc 1</string>
+    <string name="allergy_symptoms_2">Symptomy alergii czesc 2</string>
+    <string name="symptoms_of_allergic">SYMPTOMY ALERGII</string>
+    <string name="possible_symptoms">MOŻLIWE SYMPTOMY</string>
 </resources>

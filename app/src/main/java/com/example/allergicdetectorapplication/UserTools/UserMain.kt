@@ -27,6 +27,7 @@ class UserMain : AppCompatActivity() {
         binding = ActivityUserMainBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_user_main)
 
+
         btnCheckAllergens = findViewById(R.id.btnAllergens)
         btnCheckProduct = findViewById(R.id.btnCheckProduct)
         btnCalendarDust = findViewById(R.id.btnCalendarDust)
@@ -45,6 +46,7 @@ class UserMain : AppCompatActivity() {
             val intent = Intent(this, CheckProduct::class.java)
             startActivity(intent)
         }
+
 
         btnLogOut.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)

@@ -11,8 +11,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
         android:layout_marginStart="60sp"
+        android:layout_marginTop="100dp"
         android:text="@string/check_product"
         android:textAlignment="center"
         android:textColor="@color/text_color"
@@ -40,13 +40,24 @@
         android:textColor="@color/text_color" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnCancelCheck"
-        android:layout_width="170sp"
+        android:id="@+id/btnPossibleSymptoms"
+        android:layout_width="270sp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="110sp"
-        android:layout_marginTop="100sp"
+        android:layout_marginHorizontal="60sp"
+        android:layout_marginTop="30sp"
+        android:background="@drawable/ripple"
+        android:text="@string/possible_symptoms"
+        android:textColor="@color/text_color" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnCancelCheck"
+        android:layout_width="270sp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="60sp"
+        android:layout_marginTop="30sp"
         android:background="@drawable/ripple"
         android:text="@string/cancel"
         android:textColor="@color/text_color" />
+
 
 </LinearLayout>

@@ -17,12 +17,12 @@
 
     <application
         android:allowBackup="true"
-        android:hardwareAccelerated="false"
-        android:largeHeap="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
+        android:hardwareAccelerated="false"
         android:icon="@drawable/ic_launcher_foreground"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@drawable/ic_launcher_background"
         android:supportsRtl="true"
@@ -40,6 +40,7 @@
         <activity android:name=".photo.QrPhoto" />
         <activity android:name=".UserTools.AddAllergens" />
         <activity android:name=".photo.TextRecog" />
+        <activity android:name=".photo.Symptoms" />
 
         <meta-data
             android:name="com.google.mlkit.vision.DEPENDENCIES"
