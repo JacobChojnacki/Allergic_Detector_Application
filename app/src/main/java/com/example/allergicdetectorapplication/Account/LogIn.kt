@@ -36,8 +36,7 @@ class LogIn : AppCompatActivity() {
         }
 
         btnCancelLog.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            finish()
         }
         btnLogInLog.setOnClickListener {
             val email = edxEmailLog.text.toString()

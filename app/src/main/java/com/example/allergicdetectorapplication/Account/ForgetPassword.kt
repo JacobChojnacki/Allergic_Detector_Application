@@ -22,6 +22,10 @@ class ForgetPassword : AppCompatActivity() {
         btnResetConfirm = findViewById(R.id.btn_reset_confirm)
         btnResetCancel = findViewById(R.id.btn_reset_cancel)
 
+        btnResetCancel.setOnClickListener{
+            finish()
+        }
+
         btnResetConfirm.setOnClickListener {
             val email: String = edxResetPassword.text.toString().trim { it <= ' ' }
             if (email.isEmpty()) {
@@ -51,5 +55,4 @@ class ForgetPassword : AppCompatActivity() {
             }
         }
     }
-
 }

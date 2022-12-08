@@ -1,9 +1,7 @@
 package com.example.allergicdetectorapplication.UserTools
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -34,13 +32,10 @@ class AddAllergens : AppCompatActivity() {
         btn_addAllergen.setOnClickListener {
             updateAllergens()
         }
-
         btn_cancelAllergen.setOnClickListener {
             val intent = Intent(this, UserAllergens::class.java)
             startActivity(intent)
         }
-
-
     }
 
     private fun replaceFragment(fragment: Fragment) {
@@ -53,13 +48,12 @@ class AddAllergens : AppCompatActivity() {
     private fun updateAllergens() {
         val database = databaseReference.child(mAuth.currentUser!!.uid)
         val userData = AllergenItem(edxAddAllergens.text.toString())
-
-        database.child("allergens").child(edxAddAllergens.text.toString()).setValue(userData)
+        database.child("allergens").child(edxAddAllergens.text.toString().trim { it <= ' ' }).setValue(userData)
             .addOnCompleteListener() {
                 if (it.isSuccessful) {
-                    Toast.makeText(this, "Git", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "DODAWANIE ZAKONCZONO SUKCESEM", Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(this, "Zle", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "WYSTAPIL PROBLEM, SPRÓBUJ PONOWNIE", Toast.LENGTH_SHORT).show()
                 }
             }
     }
