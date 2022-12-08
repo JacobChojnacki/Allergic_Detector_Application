@@ -19,18 +19,7 @@
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/cnlButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16sp"
-        android:background="@drawable/button_background"
-        android:text="@string/cancel"
-        android:textColor="@color/text_color"
-        android:textSize="13sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title"/>
+
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -63,7 +52,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@id/region2text"
         app:layout_constraintStart_toEndOf="@id/guideline1"
-        app:layout_constraintTop_toBottomOf="@id/cnlButton" />
+        app:layout_constraintTop_toBottomOf="@id/guideline2" />
 
     <TextView
         android:id="@+id/region2text"
@@ -77,7 +66,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@id/region3text"
         app:layout_constraintStart_toEndOf="@id/region1text"
-        app:layout_constraintTop_toBottomOf="@id/cnlButton" />
+        app:layout_constraintTop_toBottomOf="@id/guideline2" />
 
     <TextView
         android:id="@+id/region3text"
@@ -91,7 +80,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@id/region4text"
         app:layout_constraintStart_toEndOf="@id/region2text"
-        app:layout_constraintTop_toBottomOf="@id/cnlButton" />
+        app:layout_constraintTop_toBottomOf="@id/guideline2" />
 
     <TextView
         android:id="@+id/region4text"
@@ -105,7 +94,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/region3text"
-        app:layout_constraintTop_toBottomOf="@id/cnlButton" />
+        app:layout_constraintTop_toBottomOf="@id/guideline2" />
 
     <View
         android:id="@+id/regionDivider"
@@ -129,7 +118,8 @@
         android:id="@+id/pylkiRecycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/guideline1"
         app:layout_constraintStart_toStartOf="parent"
@@ -140,9 +130,11 @@
         android:id="@+id/viewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginBottom="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/guideline1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/regionDivider" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

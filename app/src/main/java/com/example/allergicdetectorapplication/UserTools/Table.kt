@@ -23,7 +23,7 @@ class Table : Fragment() {
     private var _binding: FragmentTableBinding? = null
     private val binding get() = _binding!!
     private val recyclerAdapter = RecyclerAdapter()
-    // private lateinit var clnButton: Button
+    private lateinit var clnButton: Button
 
 
     override fun onCreateView(
@@ -32,6 +32,7 @@ class Table : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentTableBinding.inflate(inflater, container, false)
+
 
 
         return binding.root

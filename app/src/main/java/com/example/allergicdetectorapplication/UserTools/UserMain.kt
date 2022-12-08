@@ -54,7 +54,7 @@ class UserMain : AppCompatActivity() {
         }
 
         btnCalendarDust.setOnClickListener {
-            val intent = Intent(this, Calendar::class.java)
+            val intent = Intent(this, Region::class.java)
             startActivity(intent)
         }
     }
