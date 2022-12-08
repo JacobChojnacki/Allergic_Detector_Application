@@ -4,10 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import com.example.allergicdetectorapplication.R
 import com.example.allergicdetectorapplication.UserTools.CheckProduct
-import com.example.allergicdetectorapplication.databinding.ActivityTextRecogBinding
 
 class Symptoms : AppCompatActivity() {
 
