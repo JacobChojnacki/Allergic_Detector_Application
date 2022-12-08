@@ -21,6 +21,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import com.example.allergicdetectorapplication.R
 import com.example.allergicdetectorapplication.UserTools.CheckProduct
 import com.google.firebase.auth.FirebaseAuth
@@ -62,11 +63,9 @@ class QrPhoto : AppCompatActivity() {
         ivQrCode = findViewById(R.id.ivQrCode)
         tvResult = findViewById(R.id.tvResult)
         barcodeScanner = BarcodeScanning.getClient()
-
         database = FirebaseDatabase.getInstance().getReference("Users")
         mAuth = FirebaseAuth.getInstance()
         val allergensUser: ArrayList<String> = ArrayList()
-
         // Main User List
         val checkUserList: ArrayList<String> = ArrayList()
 
@@ -91,7 +90,8 @@ class QrPhoto : AppCompatActivity() {
             try {
                 val photo = data?.extras?.get("data") as Bitmap
                 inputImage = InputImage.fromBitmap(photo, 0)
-                processQr(checkUserList)
+                ivQrCode.setImageBitmap(photo)
+                ivQrCode.background = null
             } catch (e: Exception) {
                 Log.d(TAG, "onActivityResult: " + e.message)
             }
@@ -101,7 +101,17 @@ class QrPhoto : AppCompatActivity() {
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             val data = result?.data
-            inputImage = InputImage.fromFilePath(this@QrPhoto, data?.data!!)
+            if (data != null) {
+                inputImage = InputImage.fromFilePath(this@QrPhoto, data.data!!)
+                ivQrCode.setImageDrawable(ResourcesCompat.getDrawable(resources,
+                    R.drawable.loading,null))
+                processQr(checkUserList)
+            }
+        }
+
+        btnConfirmQrPhoto.setOnClickListener {
+            ivQrCode.setImageDrawable(ResourcesCompat.getDrawable(resources,
+                R.drawable.loading,null))
             processQr(checkUserList)
         }
 
@@ -111,12 +121,12 @@ class QrPhoto : AppCompatActivity() {
         }
 
         btnScanBarcode.setOnClickListener {
-            val options = arrayOf("camera", "gallery")
+            val options = arrayOf("KAMERA", "GALERIA")
 
             val builder = AlertDialog.Builder(this@QrPhoto)
-            builder.setTitle("Pick a option")
+            builder.setTitle("DOKONAJ WYBORU")
 
-            builder.setItems(options, DialogInterface.OnClickListener { dialog, which ->
+            builder.setItems(options) { _, which ->
                 if (which == 0) {
                     val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                     cameraLauncher.launch(cameraIntent)
@@ -126,16 +136,25 @@ class QrPhoto : AppCompatActivity() {
                     storageIntent.action = Intent.ACTION_GET_CONTENT
                     galleryLauncher.launch(storageIntent)
                 }
-            })
+            }
             builder.show()
         }
     }
 
     @SuppressLint("SetTextI18n")
     private fun processQr(checkUserList: ArrayList<String>) {
-        ivQrCode.visibility = View.GONE
-        tvResult.visibility = View.VISIBLE
+        val items: ArrayList<String> = ArrayList()
         barcodeScanner.process(inputImage).addOnCompleteListener {
+            if (it.result.isEmpty()) {
+                tvResult.text = "NIE ZNALEZIONO KODU QR"
+                ivQrCode.setImageDrawable(
+                    ResourcesCompat.getDrawable(
+                        resources,
+                        R.drawable.try_again, null
+                    )
+                )
+                ivQrCode.background = null
+            }
             for (barcode: Barcode in it.result) {
                 when (barcode.valueType) {
                     Barcode.TYPE_WIFI -> {
@@ -153,25 +172,31 @@ class QrPhoto : AppCompatActivity() {
 
                     Barcode.TYPE_TEXT -> {
                         val data = barcode.displayValue
-                        if (data != null) {
-                            if (checkUserList.any(data.split(",")::contains)) {
-                                Log.d("ZobaczymyDobrze", data.split(",").toString())
-                            } else {
-                                Log.d("ZobaczymyZLE", data.split(",").toString())
-                                Log.d("ZobaczymyDANE", checkUserList.toString())
-                                Log.d("ZobaczymyZLE1", data.split(",")[0])
-                                Log.d("ZobaczymyDane1", checkUserList[0])
-
-                            }
-                            tvResult.text = "$data"
+                        items.add(data!!.lowercase().replace("\\s".toRegex(), ""))
+                        if (checkUserList.any(items[0].split(",")::contains)) {
+                            ivQrCode.setImageDrawable(
+                                ResourcesCompat.getDrawable(resources, R.drawable.danger, null)
+                            )
+                            ivQrCode.background = null
+                            tvResult.text = "W TWOIM PRODUKCIE ZNAJDUJE/JĄ SIĘ: " +
+                                    checkUserList.intersect(items[0].split(",").toSet())
+                                        .toString()
+                                        .replace("[", "")
+                                        .replace("]", "")
                         } else {
-                            tvResult.text = "NIE WYKRYTO KODU QR"
+                            tvResult.text = ""
+                            ivQrCode.setImageDrawable(
+                                ResourcesCompat.getDrawable(
+                                    resources,
+                                    R.drawable.safe, null
+                                )
+                            )
                         }
                     }
                 }
             }
         }.addOnFailureListener {
-            Log.d(TAG, "processQr: ${it.message}")
+            Toast.makeText(this, "Spróbuj ponownie", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -221,16 +246,6 @@ class QrPhoto : AppCompatActivity() {
             if (!(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 Toast.makeText(this@QrPhoto, "Storage Permission Denied", Toast.LENGTH_SHORT).show()
             }
-        }
-    }
-
-    private fun takeImage() {
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-
-        try {
-            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
-        } catch (e: Exception) {
-
         }
     }
 }

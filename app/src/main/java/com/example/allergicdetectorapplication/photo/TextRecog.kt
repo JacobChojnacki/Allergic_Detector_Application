@@ -3,7 +3,6 @@ package com.example.allergicdetectorapplication.photo
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -12,7 +11,9 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import android.view.View
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
@@ -39,6 +40,7 @@ class TextRecog : AppCompatActivity() {
     private val REQUEST_IMAGE_CAPTURE = 1
     private var imageBitmap: Bitmap? = null
     private val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+    private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
     private lateinit var mAuth: FirebaseAuth
     private lateinit var database: DatabaseReference
 
@@ -57,6 +59,22 @@ class TextRecog : AppCompatActivity() {
         // Main User List
         val checkUserList: ArrayList<String> = ArrayList()
 
+        galleryLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            val data = result?.data
+            if (data != null) {
+                imageBitmap =
+                    InputImage.fromFilePath(this@TextRecog, data.data!!).bitmapInternal as Bitmap
+                binding.ivTextRec.setImageDrawable(
+                    ResourcesCompat.getDrawable(
+                        resources,
+                        R.drawable.loading, null
+                    )
+                )
+                processImage(checkUserList)
+            }
+        }
 
         database.child(mAuth.currentUser!!.uid).child("allergens").get()
             .addOnCompleteListener {
@@ -73,11 +91,30 @@ class TextRecog : AppCompatActivity() {
         binding.apply {
 
             btnTakeTextPhoto.setOnClickListener {
-                takeImage()
+                val options = arrayOf("KAMERA", "GALERIA")
 
-                tvTextResult.text = ""
+                val builder = AlertDialog.Builder(this@TextRecog)
+                builder.setTitle("DOKONAJ WYBORU")
+
+                builder.setItems(options) { _, which ->
+                    if (which == 0) {
+                        takeImage()
+                    } else {
+                        val storageIntent = Intent()
+                        storageIntent.type = "image/*"
+                        storageIntent.action = Intent.ACTION_GET_CONTENT
+                        galleryLauncher.launch(storageIntent)
+                    }
+                }
+                builder.show()
             }
             btnConfirmTakeTextRec.setOnClickListener {
+                binding.ivTextRec.setImageDrawable(
+                    ResourcesCompat.getDrawable(
+                        resources,
+                        R.drawable.loading, null
+                    )
+                )
                 processImage(checkUserList)
             }
         }
@@ -94,7 +131,7 @@ class TextRecog : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun processImage(checkUserList: ArrayList<String>) {
-        var items: ArrayList<String> = ArrayList()
+        val items: ArrayList<String> = ArrayList()
         if (imageBitmap != null) {
             val image = imageBitmap?.let {
                 InputImage.fromBitmap(it, 0)
@@ -106,6 +143,7 @@ class TextRecog : AppCompatActivity() {
                             it.text.lowercase(Locale.ROOT).split("\n").toString()
                                 .replace("[", "")
                                 .replace("]", "")
+                                .replace(" ", "")
                         )
                         binding.tvTextResult.text = it.text
 
@@ -117,12 +155,13 @@ class TextRecog : AppCompatActivity() {
                                     null
                                 )
                             )
+                            binding.ivTextRec.background = null
                             binding.tvTextResult.text = "W TWOIM PRODUKCIE ZNAJDUJE/JĄ SIĘ: " +
                                     checkUserList.intersect(items[0].split(",").toSet()).toString()
                                         .replace("[", "")
                                         .replace("]", "")
                         } else {
-                            binding.tvTextResult.text = "TWÓJ PRODUKT JEST WOLNY OD ALERGENÓW"
+                            binding.tvTextResult.text = ""
                             binding.ivTextRec.setImageDrawable(
                                 ResourcesCompat.getDrawable(
                                     resources,
@@ -130,17 +169,16 @@ class TextRecog : AppCompatActivity() {
                                     null
                                 )
                             )
+                            binding.ivTextRec.background = null
                         }
-
-                        Log.d("Results", items[0].split(",")[0])
-
+                        Log.d("Results", items[0].split(",").toString())
                     }
                     .addOnFailureListener {
-                        Toast.makeText(this, "Spróbuj ponownie", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "SPRÓBUJ PONOWNIE", Toast.LENGTH_SHORT).show()
                     }
             }
         } else {
-            Toast.makeText(this, "Nie wybrano zdjecia", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "NIE WYBRANO ZDJĘCIA", Toast.LENGTH_SHORT).show()
         }
     }
 

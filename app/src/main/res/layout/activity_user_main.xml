@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="50sp"
         android:layout_marginTop="60sp"
-        android:background="@drawable/button_background"
+        android:background="@drawable/ripple"
         android:text="@string/allergens"
         android:textColor="@color/text_color"
         android:textSize="15sp" />
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="50sp"
         android:layout_marginTop="25sp"
-        android:background="@drawable/button_background"
+        android:background="@drawable/ripple"
         android:text="@string/check_product"
         android:textColor="@color/text_color"
         android:textSize="15sp" />
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="50sp"
         android:layout_marginTop="30sp"
-        android:background="@drawable/button_background"
+        android:background="@drawable/ripple"
         android:text="@string/calendar_dust"
         android:textColor="@color/text_color"
         android:textSize="15sp"/>
@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="140sp"
         android:layout_marginTop="100sp"
-        android:background="@drawable/button_background"
+        android:background="@drawable/ripple"
         android:text="@string/log_out"
         android:textColor="@color/text_color"
         android:textSize="15sp"/>
