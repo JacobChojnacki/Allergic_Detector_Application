@@ -32,7 +32,7 @@ class ViewPagerAdapter : PagerAdapter() {
 
     private fun generateListOfPylenie(): List<Pylenie> {
 
-        return List(5) { Pylenie(Random.nextBoolean(), Random.nextBoolean(), Random.nextBoolean()) }
+        return List(9) { Pylenie(Random.nextBoolean(), Random.nextBoolean(), Random.nextBoolean()) }
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {

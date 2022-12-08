@@ -32,9 +32,6 @@ class Table : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentTableBinding.inflate(inflater, container, false)
-
-
-
         return binding.root
     }
 
@@ -43,8 +40,9 @@ class Table : Fragment() {
     override fun onResume() {
         super.onResume()
         initRecycler()
-        initViewPager()
         initListeners()
+        initViewPager()
+
     }
 
     private fun initViewPager() {
@@ -60,18 +58,23 @@ class Table : Fragment() {
             region1text.setOnClickListener {
                 turnOffAllRegions()
                 turnOnRegion(region1text)
+                initViewPager()
+
             }
             region2text.setOnClickListener {
                 turnOffAllRegions()
                 turnOnRegion(region2text)
+                initViewPager()
             }
             region3text.setOnClickListener {
                 turnOffAllRegions()
                 turnOnRegion(region3text)
+                initViewPager()
             }
             region4text.setOnClickListener {
                 turnOffAllRegions()
                 turnOnRegion(region4text)
+                initViewPager()
             }
         }
     }
@@ -104,7 +107,11 @@ class Table : Fragment() {
             Pylek("Brzoza", 3, isUsed = true),
             Pylek("Szczaw", 2, isUsed = true),
             Pylek("Pokrzywa", 1, isUsed = true),
-            Pylek("Cladosporium", 2, isUsed = true)
+            Pylek("Cladosporium", 2, isUsed = true),
+            Pylek("Ambrozja", 2, isUsed = true),
+            Pylek("Bylica", 3, isUsed = true),
+            Pylek("Topola", 1, isUsed = true),
+            Pylek("Komosa", 2, isUsed = true)
         )
         val periods = listOf(
             "styczen",
