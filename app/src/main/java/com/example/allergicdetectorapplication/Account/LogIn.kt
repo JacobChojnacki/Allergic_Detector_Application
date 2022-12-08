@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.allergicdetectorapplication.R
@@ -16,7 +17,7 @@ class LogIn : AppCompatActivity() {
     private lateinit var btnLogInLog: Button
     private lateinit var btnCancelLog: Button
     private lateinit var mAuth: FirebaseAuth
-
+    private lateinit var tvChangePassword: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_log_in)
@@ -27,6 +28,12 @@ class LogIn : AppCompatActivity() {
         edxPasswordLog = findViewById(R.id.edxPasswordLog)
         btnLogInLog = findViewById(R.id.btnLogInLog)
         btnCancelLog = findViewById(R.id.btnCancelLog)
+        tvChangePassword = findViewById(R.id.tvForgetPassword)
+
+        tvChangePassword.setOnClickListener{
+            val intent = Intent(this@LogIn, ForgetPassword::class.java)
+            startActivity(intent)
+        }
 
         btnCancelLog.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)

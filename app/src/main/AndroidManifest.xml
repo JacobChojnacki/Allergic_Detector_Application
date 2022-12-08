@@ -41,6 +41,7 @@
         <activity android:name=".UserTools.AddAllergens" />
         <activity android:name=".photo.TextRecog" />
         <activity android:name=".photo.Symptoms" />
+        <activity android:name=".Account.ForgetPassword" />
 
         <meta-data
             android:name="com.google.mlkit.vision.DEPENDENCIES"

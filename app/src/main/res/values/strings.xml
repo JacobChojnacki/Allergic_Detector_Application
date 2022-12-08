@@ -44,4 +44,6 @@
     <string name="allergy_symptoms_2">Symptomy alergii czesc 2</string>
     <string name="symptoms_of_allergic">SYMPTOMY ALERGII</string>
     <string name="possible_symptoms">MOŻLIWE SYMPTOMY</string>
+    <string name="forget_password">ZAPOMNIAŁEŚ HASŁA?</string>
+    <string name="enter_your_email">WPISZ SWÓJ EMAIL NA KTÓRY BĘDZIEMY MOGLI WYSŁAĆ KOD RESETUJĄCY TWOJE HASŁO</string>
 </resources>
